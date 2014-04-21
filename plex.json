@@ -1,0 +1,12 @@
+{
+    "device" : {
+		"name" : "plex",
+		"type" : "Mediaserver",
+		"config" : {
+			"protocol": "http",
+			"hostname" : "20.10.2.4",
+			"port" : 32400,
+			"responsetype" : "XML"
+		}
+	}
+}
