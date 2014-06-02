@@ -11,12 +11,14 @@ class Factory
 		
 		$device = '\\Framework\\Devices\\' . $data->device->type . '\\' . $data->device->type;
 		
-		if (class_exists($device)) {
-            return new $device();
-        }
-        else {
-            \Framework\Defaults\Exceptions\Exception("Invalid device type given.");
-        }
+		if (class_exists($device)) 
+		{
+            		return new $device();
+        	}
+        	else 
+        	{
+            		\Framework\Defaults\Exceptions\Exception("Invalid device type given.");
+        	}
 	}
 }
 
