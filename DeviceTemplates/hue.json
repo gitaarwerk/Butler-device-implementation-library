@@ -1,0 +1,12 @@
+{
+    "device" : {
+		"name" : "Philips hue",
+		"type" : "Hue",
+		"config" : {
+			"protocol": "http",
+			"hostname" : "20.10.2.45",
+			"port" : 80,
+			"responsetype" : "JSON"
+		}
+	}
+}
