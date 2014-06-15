@@ -1,6 +1,6 @@
 <?php
 
-namespace Framework\Device;
+namespace Framework\DeviceModel;
 
 /* @package Device factory */
 class Factory
@@ -17,7 +17,7 @@ class Factory
 		$dataloader = new \Framework\Data\Dataloader($builderObject, $dataType);
 		$data = $dataloader->getData()->device;
 
-		$device = '\\Framework\\Device\\' . $data->type . '\\' . $data->name . '\\' . $data->name;
+		$device = '\\Framework\\DeviceModel\\' . $data->type . '\\' . $data->name . '\\' . $data->name;
 
 		if (class_exists($device))
 		{
@@ -27,9 +27,11 @@ class Factory
                 $data->config->protocol,
                 strtolower($data->config->hostname),
                 $data->config->port,
-                strtolower($data->config->responseType));
+                strtolower($data->config->responseType)
+            );
         }
-        else {
+        else
+        {
             \Framework\Defaults\Exceptions\Exception::Notice("Invalid device type given.");
         }
 	}

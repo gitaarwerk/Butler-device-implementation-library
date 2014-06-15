@@ -1,13 +1,9 @@
 <?php
-// set error reporting to true when in Debug mode
-ini_set('display_errors',1);
-ini_set('display_startup_errors',1);
-error_reporting(-1);
 
-// set error reporting to true when in Debug mode
+// Load the bootrstrapper
 require_once(dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR . "Bootstrap" . DIRECTORY_SEPARATOR . "Bootstrap.php");
 
-// Call execution timer to loop trough whole event & start it
+// Call execution timer to loop trough whole event and starts it
 $timer = new \Framework\DebugTools\ExecutionTimer();
 $timer->startTimer();
 
@@ -24,12 +20,12 @@ if(isset($_GET["url"]))
 
 if (\Framework\Defaults\Type\String::isDefault($url) === false)
 {
-    // assign controller by url
-    \Framework\Core\CoreFunctions::controllerFactory($url);
+    // Build the controller
+    \Framework\Core\ControllerFactory::Build($url);
 }
 else
 {
-    // assign homepage controller
+    // TODO: Put something useful here, like expose all possible packages.
     echo "homepage...";
 }
 

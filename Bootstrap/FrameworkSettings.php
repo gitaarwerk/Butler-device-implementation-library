@@ -18,9 +18,9 @@
 // Framework namespacing
 define("FRAMEWORK_CLASS_SEPARATOR", "\\");
 define("FRAMEWORK_CLASS_ROOT_NAME", FRAMEWORK_CLASS_SEPARATOR . "Framework");
-define("FRAMEWORK_CONTROLLER_NAME", "Controller");
-define("FRAMEWORK_MODEL_NAME", "Model");
-define("FRAMEWORK_VIEW_NAME", "View");
+define("FRAMEWORK_CONTROLLER_NAME", "DeviceController");
+define("FRAMEWORK_MODEL_NAME", "DeviceModel");
+define("FRAMEWORK_VIEW_NAME", "DeviceView");
 
 // Framework agent variables
 define("FRAMEWORK_USERAGENT_STRING", "Butler Device Factory"); // Sets the user agent of which it makes requests from

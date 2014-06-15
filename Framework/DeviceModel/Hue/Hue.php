@@ -1,10 +1,10 @@
 <?php
 
-namespace Framework\Device\Hue;
+namespace Framework\DeviceModel\Hue;
 
 
 class Hue
-    extends \Framework\Device\Device
+    extends \Framework\DeviceModel\Device
 {
 	private $_url;
 	

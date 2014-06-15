@@ -8,8 +8,8 @@ exit;
 * @object \Framework\Plex\Plex $plex plex media server.
 */
 
-$plex = \Framework\Device\Factory::build("DeviceTemplates/plex.json", 'JSON');
+$plex = \Framework\DeviceModel\Factory::build("DeviceTemplates/plex.json", 'JSON');
 
-$movies = $plex->getMedia('movies')->setFilter('movies')->getMovieList(\Framework\Device\Mediaserver\Plex\LIBRARY_LISTING_RECENTLY_ADDED);
+$movies = $plex->getMedia('movies')->setFilter('movies')->getMovieList(\Framework\DeviceModel\Mediaserver\Plex\LIBRARY_LISTING_RECENTLY_ADDED);
 
 var_dump($movies);

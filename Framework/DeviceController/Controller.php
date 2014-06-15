@@ -1,6 +1,6 @@
 <?php
 
-namespace Framework\Controller;
+namespace Framework\DeviceController;
 
 class Controller
 {
@@ -9,20 +9,16 @@ class Controller
     protected $_action;
     protected $_template;
 
-    function __construct($model, $controller, $action) {
-
+    function __construct($model, $controller, $action)
+    {
         $this->_controller = $controller;
         $this->_action = $action;
         $this->_model = $model;
-
-        $this->$model = new $model;
-        $this->_template =&amp; new Template($controller,$action);
-
     }
 
-    function set($name,$value) {
-        $this->_template->set($name,$value);
-    }
+//    function set($name, $value) {
+//        $this->_template->set($name,$value);
+//    }
 
     function __destruct() {
         $this->_template->render();

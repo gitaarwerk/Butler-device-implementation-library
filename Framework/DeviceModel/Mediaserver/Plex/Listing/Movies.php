@@ -1,6 +1,6 @@
 <?php
 
-namespace Framework\Device\Mediaserver\Plex\Listing;
+namespace Framework\DeviceModel\Mediaserver\Plex\Listing;
 
 /* @package Plex */
 class Movies
@@ -17,7 +17,7 @@ class Movies
     }
 
     /* @return array $this->_movies */
-    public function getMovieList($listType = \Framework\Device\Mediaserver\Plex\LIBRARY_LISTING_ALL)
+    public function getMovieList($listType = \Framework\DeviceModel\Mediaserver\Plex\LIBRARY_LISTING_ALL)
     {
         $return_movies = array();
 

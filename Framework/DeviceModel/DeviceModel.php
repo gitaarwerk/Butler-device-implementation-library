@@ -1,8 +1,8 @@
 <?php
 
-namespace Framework\Device;
+namespace Framework\DeviceModel;
 
-abstract class Device
+abstract class DeviceModel
     extends \Framework\Defaults\DefaultClass
 {
 
