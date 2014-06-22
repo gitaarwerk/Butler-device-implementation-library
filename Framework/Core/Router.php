@@ -4,7 +4,6 @@ namespace Framework\Core;
 
 class Router
 {
-    private $_deviceObject = \Framework\Defaults\Type\Object::DEFAULT_VALUE;
     private $_controller = \Framework\Defaults\Type\String::DEFAULT_VALUE;
     private $_action = array();
 
@@ -12,12 +11,12 @@ class Router
     {
         $controller = array();
 
-        $urlArray = explode("/", $url);
+        $urlArray = explode(FRAMEWORK_URL_PARTIAL_SEPARATOR, $url);
         $urlPatternMaskArray = explode("/", $urlPatternMask);
 
         for ($i = 0; $i < count($urlArray); $i++)
         {
-            if (count($urlPatternMaskArray) > 0 && $urlPatternMaskArray[0] === 'controller')
+            if (count($urlPatternMaskArray) > 0 && $urlPatternMaskArray[0] === FRAMEWORK_MVC_URL_PATTERN_CONTROLLER)
             {
                 // controller path
                 array_push($controller, (string)ucfirst($urlArray[$i]));
@@ -25,7 +24,7 @@ class Router
             }
             else
             {
-                // leftovers go into the actions
+                // leftovers get pushed into the actions array
                 array_push($this->_action, (string)ucfirst($urlArray[$i]));
             }
         }
@@ -44,7 +43,7 @@ class Router
         }
         else
         {
-            return \Framework\Defaults\Exception\Error('No controller found...');
+            return \Framework\Defaults\Exceptions\Exception::Error('No controller found...');
         }
 
     }

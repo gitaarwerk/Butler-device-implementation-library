@@ -70,13 +70,13 @@ class Url
 	
 	public function getUrl()
 	{
-		if($this->_constructUrl() === true)
+		if ($this->_constructUrl() === true)
 		{
 			return $this->_url;
 		}
 		else
 		{
-			return \Framework\Defaults\Exceptions\Error("Url failed to build...");
+			return \Framework\Defaults\Exceptions\Exception::Error("Url failed to build...");
 		}
 	}
 }

@@ -15,11 +15,20 @@
     // Networking
     define("FRAMEWORK_URL_PORT_SEPARATOR", ":");
     define("FRAMEWORK_URL_DOMAIN_SEPARATOR", ".");
-    define("FRAMEWORK_URL_FOLDER_SEPARATOR", "/");
+    define("FRAMEWORK_URL_PARTIAL_SEPARATOR", "/");
     define("FRAMEWORK_URL_PROTOCOL_SEPARATOR", "://");
 
     // HTTP Interface
-    define("FRAMEWORK_MVC_URL_PATTERN", 'controller/controller/action/');
+    define("FRAMEWORK_MVC_URL_PATTERN_SEPARATOR", "/");
+    define("FRAMEWORK_MVC_URL_PATTERN_CONTROLLER", "controller");
+    define("FRAMEWORK_MVC_URL_PATTERN_ACTION", "action");
+    define("FRAMEWORK_MVC_URL_PATTERN",
+        FRAMEWORK_MVC_URL_PATTERN_CONTROLLER .
+        FRAMEWORK_MVC_URL_PATTERN_SEPARATOR .
+        FRAMEWORK_MVC_URL_PATTERN_CONTROLLER .
+        FRAMEWORK_MVC_URL_PATTERN_SEPARATOR .
+        FRAMEWORK_MVC_URL_PATTERN_ACTION
+    ); // reads as "controller/controller/action". The "action" is considered as an infinite mask
 
 
 // Framework namespacing
