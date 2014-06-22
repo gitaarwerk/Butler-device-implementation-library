@@ -5,7 +5,7 @@ namespace Framework\Defaults\Type;
 class Object
     implements \Framework\Interfaces\IsDefault
 {
- 	const DEFAULT_VALUE = NULL;
+ 	const DEFAULT_VALUE = null;
 	
 	public static function isDefault($value)
 	{

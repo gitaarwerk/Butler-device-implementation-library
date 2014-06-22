@@ -16,7 +16,7 @@ const LIBRARY_LISTING_BY_COLLECTION = '/collection'; // view all by folder
 
  /* @package Plex */
 class Plex
-    extends \Framework\DeviceModel\Device
+    extends \Framework\DeviceModel\DeviceModel
 {
 	private $_url;
 	private $_contents;
@@ -34,7 +34,7 @@ class Plex
         $this->_friendlyName = $friendlyName;
 
         // initialize url of service
-        $urlBuilder = new \Framework\Builders\Url();
+        $urlBuilder = new \Framework\Build\Url();
 		$urlBuilder->setProtocol($scheme);
 		$urlBuilder->setHostname($hostname);
 		$urlBuilder->setPortnumber($port);

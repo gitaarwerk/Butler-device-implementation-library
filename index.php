@@ -1,7 +1,6 @@
 <?php
 
 echo 'hier hoor je niet te komen...';
-exit;
 
 /**
 * example of documenting a variable's type.

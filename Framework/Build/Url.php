@@ -1,6 +1,6 @@
 <?php
 
-namespace Framework\Builders;
+namespace Framework\Build;
 
 class Url 
 	implements \Framework\Interfaces\GetUrl

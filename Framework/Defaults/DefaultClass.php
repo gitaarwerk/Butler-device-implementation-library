@@ -4,7 +4,7 @@ namespace Framework\Defaults;
 
 abstract class DefaultClass
 {
-	public function __invoke()
+	public static function __invoke()
 	{
 		\Framework\Defaults\Exceptions\Exception::Error("You cannot use a class as a method...", 1, false);
 	}

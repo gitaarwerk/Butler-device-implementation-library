@@ -10,7 +10,7 @@ class Hue
 	
 	public function __construct($scheme, $hostname, $port)
 	{	
-		$urlBuilder = new \Framework\Builders\Url();
+		$urlBuilder = new \Framework\Build\Url();
 		$urlBuilder->setProtocol($scheme);
 		$urlBuilder->setHostname($hostname);
 		$urlBuilder->setPortnumber($port);
