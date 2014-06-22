@@ -5,33 +5,50 @@ namespace Framework\Core;
 class Router
 {
     private $_controller = \Framework\Defaults\Type\String::DEFAULT_VALUE;
-    private $_action = array();
+    private $_action = \Framework\Defaults\Type\ArrayCollection::DEFAULT_VALUE;
 
     public function __construct($url, $urlPatternMask = FRAMEWORK_MVC_URL_PATTERN)
     {
-        $controller = array();
+        $controllers = array();
+        $actions = array();
 
         $urlArray = explode(FRAMEWORK_URL_PARTIAL_SEPARATOR, $url);
         $urlPatternMaskArray = explode("/", $urlPatternMask);
 
-        for ($i = 0; $i < count($urlArray); $i++)
+        if (count($urlArray) > 0 && count($urlPatternMaskArray) > 0)
         {
-            if (count($urlPatternMaskArray) > 0 && $urlPatternMaskArray[0] === FRAMEWORK_MVC_URL_PATTERN_CONTROLLER)
+            for ($i = 0; $i < count($urlArray); $i++)
             {
-                // controller path
-                array_push($controller, (string)ucfirst($urlArray[$i]));
-                array_shift($urlPatternMaskArray);
+                if (count($urlPatternMaskArray) > 0 && $urlPatternMaskArray[0] === FRAMEWORK_MVC_URL_PATTERN_CONTROLLER)
+                {
+                    // controller path
+                    array_push($controllers, (string)ucfirst($urlArray[$i]));
+                    array_shift($urlPatternMaskArray);
+                }
+                else
+                {
+                    if (\Framework\Defaults\Type\String::isEmpty($urlArray[$i]) === false)
+                    {
+                        // leftovers get pushed into the actions array
+                        array_push($actions, (string)ucfirst($urlArray[$i]));
+                    }
+                }
             }
-            else
+
+            // glue arrays back together
+            $controllers = implode(FRAMEWORK_CLASS_SEPARATOR, $controllers);
+            $this->_controller = (string)FRAMEWORK_CLASS_ROOT_DIRECTORY . FRAMEWORK_CLASS_SEPARATOR . FRAMEWORK_CONTROLLER_DIRECTORY . FRAMEWORK_CLASS_SEPARATOR . $controllers;
+
+            // sets action if there are any
+            if (count($actions)  > 1)
             {
-                // leftovers get pushed into the actions array
-                array_push($this->_action, (string)ucfirst($urlArray[$i]));
+                $this->_action = (array)$actions;
             }
         }
-
-        // glue arrays back together
-        $controller = implode(FRAMEWORK_CLASS_SEPARATOR, $controller);
-        $this->_controller = FRAMEWORK_CLASS_ROOT_DIRECTORY . FRAMEWORK_CLASS_SEPARATOR . FRAMEWORK_CONTROLLER_DIRECTORY . FRAMEWORK_CLASS_SEPARATOR . $controller;
+        else
+        {
+            \Framework\Defaults\Exceptions\Exception::Error("Router has no routing information");
+        }
     }
 
     /* @return string $this->_action */

@@ -31,5 +31,3 @@ if (FRAMEWORK_DEVELOPMENT_ENVIRONMENT === true)
 }
 
 \Framework\Core\Kernel::Start();
-
-?>

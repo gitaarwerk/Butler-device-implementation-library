@@ -16,11 +16,11 @@ class String
     {
         if (isset($value) && trim($value) !== "")
         {
-            return true;
+            return false;
         }
         else
         {
-            return false;
+            return true;
         }
     }
 }
