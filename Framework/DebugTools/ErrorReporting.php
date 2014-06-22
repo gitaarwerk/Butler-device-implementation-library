@@ -3,6 +3,7 @@
 namespace Framework\DebugTools;
 
 class ErrorReporting
+    extends \Framework\Defaults\DefaultClass
 {
     public static function startErrorReporting()
     {
@@ -22,6 +23,3 @@ class ErrorReporting
         }
     }
 }
-
-
-?>

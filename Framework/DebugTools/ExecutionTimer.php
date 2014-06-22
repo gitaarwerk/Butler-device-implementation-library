@@ -4,6 +4,7 @@ namespace Framework\DebugTools;
 
 /* @package DebugTools */
 class ExecutionTimer
+    extends \Framework\Defaults\DefaultClass
 {
     private $_startTime;
     private $_endTime;
@@ -47,4 +48,3 @@ class ExecutionTimer
         }
     }
 }
-?>

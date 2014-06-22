@@ -3,6 +3,7 @@
 namespace Framework\DebugTools;
 
 class FrameworkInformation
+    extends \Framework\Defaults\DefaultClass
 {
     public static function Test
     {
@@ -15,4 +16,4 @@ class FrameworkInformation
             return false;
         }
     }
-?>
+}

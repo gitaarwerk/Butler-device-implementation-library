@@ -3,6 +3,7 @@
 namespace Framework\Core;
 
 class CoreFunctions
+    extends \Framework\Defaults\DefaultClass
 {
     private static function stripSlashesDeep($value)
     {

@@ -2,7 +2,8 @@
 
 namespace Framework\Build;
 
-class Url 
+class Url
+    extends \Framework\Defaults\DefaultClass
 	implements \Framework\Interfaces\GetUrl
 {
 	private $_url = \Framework\Defaults\Type\String::DEFAULT_VALUE;

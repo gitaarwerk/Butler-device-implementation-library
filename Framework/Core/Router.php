@@ -3,9 +3,10 @@
 namespace Framework\Core;
 
 class Router
+    extends \Framework\Defaults\DefaultClass
 {
     private $_controller = \Framework\Defaults\Type\String::DEFAULT_VALUE;
-    private $_action = \Framework\Defaults\Type\ArrayCollection::DEFAULT_VALUE;
+    private $_action = array();
 
     public function __construct($url, $urlPatternMask = FRAMEWORK_MVC_URL_PATTERN)
     {
@@ -13,7 +14,7 @@ class Router
         $actions = array();
 
         $urlArray = explode(FRAMEWORK_URL_PARTIAL_SEPARATOR, $url);
-        $urlPatternMaskArray = explode("/", $urlPatternMask);
+        $urlPatternMaskArray = explode(FRAMEWORK_MVC_URL_PATTERN_SEPARATOR, $urlPatternMask);
 
         if (count($urlArray) > 0 && count($urlPatternMaskArray) > 0)
         {

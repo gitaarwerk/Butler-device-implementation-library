@@ -4,7 +4,7 @@ namespace Framework\Defaults;
 
 abstract class DefaultClass
 {
-	public static function __invoke()
+    public static function __invoke()
 	{
 		\Framework\Defaults\Exceptions\Exception::Error("You cannot use a class as a method...", 1, false);
 	}
@@ -22,7 +22,7 @@ abstract class DefaultClass
 	public function __set($name, $vars)
 	{
 		return \Framework\Defaults\Exceptions\Exception::Error("You may not set the variable" . $name . "...", 0, false);
-	}	
+	}
 }
 
 ?>
