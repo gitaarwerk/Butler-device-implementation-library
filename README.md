@@ -1,4 +1,4 @@
-nodejs-butler-home-automation
+Butler-device-implementation-library
 =============================
 
 Work in progress...
