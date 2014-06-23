@@ -5,3 +5,6 @@ Butler-device-implementation-library
 
 RESTful service for Butler home automation system. This framework will be in charge of handling any requests to other devices in its network.
 
+Todo
+* convert framework from Apache PHP to Hack
+* 
