@@ -1,11 +1,11 @@
 <?php
 
-namespace Framework\Data;
+namespace Framework\Build;
 
 class Dataloader
     extends \Framework\Defaults\DefaultClass
 {
-	private $_dataObject;
+	private $_dataObject = array();
 	
 	public function __construct($dataSource, $dataType)
 	{
@@ -17,17 +17,13 @@ class Dataloader
 			{	
 				case 'json':
 					$dataObject = new \Framework\Data\Types\JSON();
-					$this->_dataObject = $dataObject->setData($dataSource)->getData();
+					$this->_dataObject = (array)$dataObject->setData($dataSource)->getData();
 					break;
 				case 'xml':
 					$dataObject = new \Framework\Data\Types\XML();
-					$this->_dataObject = $dataObject->setData($dataSource)->getData();
+					$this->_dataObject = (array)$dataObject->setData($dataSource)->getData();
 					break;
 			}
-		}
-		else
-		{
-			return \Framework\Defaults\Exception\Exception("No datasource given...");
 		}
 	}
 	

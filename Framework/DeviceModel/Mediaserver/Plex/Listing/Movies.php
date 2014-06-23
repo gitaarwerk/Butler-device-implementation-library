@@ -32,7 +32,7 @@ class Movies
             }
 
             $url = $movies['url'] . $listType;
-            $dataloader = new \Framework\Data\Dataloader($url, $movies['responseType']);
+            $dataloader = new \Framework\Build\Dataloader($url, $movies['responseType']);
             $data = $dataloader->getData();
 
             array_push($return_movies, $data->_children);
@@ -63,7 +63,7 @@ class Movies
     }
 
     /* @return array $this->_folderFilter */
-    public function getFilter()
+    public function geCurrentFilter()
     {
         return (array)$this->_folderFilter;
     }

@@ -11,7 +11,7 @@ class Response
     {
         if (\Framework\Defaults\Type\String::isEmpty(FRAMEWORK_RESPONSE_OVERRIDE) === false)
         {
-            $response_header = FRAMEWORK_RESPONSE_OVERRIDE;
+            self::$_responseHeader = FRAMEWORK_RESPONSE_OVERRIDE;
         }
     }
 }

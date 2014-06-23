@@ -10,8 +10,6 @@ class JSON
 
     public function setData($dataObject)
     {
-        $data = '';
-
         // use file_get_contents for local data
         if (file_exists($dataObject) === true)
         {
@@ -29,7 +27,7 @@ class JSON
 	
 	public function getData()
 	{
-		return $this->_dataObject;
+		return (array)$this->_dataObject;
 	}
 }
 

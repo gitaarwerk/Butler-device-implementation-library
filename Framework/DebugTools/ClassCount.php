@@ -3,6 +3,7 @@
 namespace Framework\DebugTools;
 
 class ClassCount
+    extends \Framework\Defaults\DefaultClass
 {
     public static function Show()
     {

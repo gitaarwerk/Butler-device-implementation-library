@@ -50,12 +50,12 @@ class Plex
         $sectionUrl = $this->_url . \Framework\DeviceModel\Mediaserver\Plex\LIBRARY_URLPART . \Framework\DeviceModel\Mediaserver\Plex\LIBRARY_SECTION_URLPART;
 
         /* @var \Framework\Data\Dataloader($sectionUrl, $responseType) $dataloader*/
-        $dataLoader = new \Framework\Data\Dataloader($sectionUrl, $this->_responseType);
+        $dataLoader = new \Framework\Build\Dataloader($sectionUrl, $this->_responseType);
         $contents = $dataLoader->getData();
 
         // initialize folders
         /* @var object $folders */
-        foreach ($contents->_children as $folders)
+        foreach ($contents["_children"] as $folders)
         {
             $url = $sectionUrl . '/' . $folders->key;
 
@@ -117,7 +117,8 @@ class Plex
 
     /**
      * Gets the media object for the media server.
-     * @return object $this->_url Returns the url of the media server.
+     * @param string $type Movies|Photos|TVShows|Music
+     * @return mixed $this->_url Returns the url of the media server.
      */
     public function getMedia($type)
     {

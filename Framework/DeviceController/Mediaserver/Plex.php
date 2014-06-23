@@ -6,14 +6,26 @@ class Plex
     extends \Framework\DeviceController\DeviceController
 {
     private $_model;
-    private $_configuration;
 
     public function __init($arguments)
     {
-        echo 'Plex controller loaded...';
+        $config = $this->getConfiguration();
 
+        $this->_model = new \Framework\DeviceModel\Mediaserver\Plex\Plex(
+            $config->getFriendlyName(),
+            $config->getScheme(),
+            $config->getHostName(),
+            $config->getPort(),
+            $config->getResponseType()
+        );
 
-        $this->_model = new \Framework\DeviceModel\Mediaserver\Plex\Plex($friendlyName, $scheme, $hostname, $port, $responseType);
+        $model = $this->_model;
+
+        /* @var \Framework\DeviceModel\Mediaserver\Plex\Listing\Movies $movies */
+
+        $movies = $model->getMedia("movies");
+           var_dump($movies->getMovieList());
+
     }
 }
 ?>

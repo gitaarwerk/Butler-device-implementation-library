@@ -38,7 +38,5 @@ define("FRAMEWORK_CONTROLLER_DIRECTORY", "DeviceController");
 define("FRAMEWORK_MODEL_DIRECTORY", "DeviceModel");
 define("FRAMEWORK_VIEW_DIRECTORY", "DeviceView");
 
-// Framework agent variables
+// Framework user agent variables
 define("FRAMEWORK_USERAGENT_STRING", "Butler Device Factory"); // Sets the user agent of which it makes requests from
-
-?>
