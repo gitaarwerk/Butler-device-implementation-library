@@ -1,7 +1,6 @@
 <?php
 
-global $classCount;
-$classCount = 0;
+session_start();
 
 // Load framework.
 require_once("FrameworkSettings.php");

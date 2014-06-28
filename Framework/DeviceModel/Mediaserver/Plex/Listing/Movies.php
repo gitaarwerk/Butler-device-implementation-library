@@ -23,7 +23,7 @@ class Movies
 
         foreach ($this->_movieUrls as $movies)
         {
-            $filter = trim(strtolower($movies['title']));
+            $filter = trim(strtolower($movies["title"]));
 
             // if filter is set, and is not the selected one, continue;
             if (count($this->_folderFilter) > 0 && in_array($filter, $this->_folderFilter) === false)
@@ -31,11 +31,11 @@ class Movies
                 continue;
             }
 
-            $url = $movies['url'] . $listType;
-            $dataloader = new \Framework\Build\Dataloader($url, $movies['responseType']);
+            $url = $movies["url"] . $listType;
+            $dataloader = new \Framework\Build\Dataloader($url, $movies["responseType"]);
             $data = $dataloader->getData();
 
-            array_push($return_movies, $data->_children);
+            array_push($return_movies, $data["_children"]);
         }
 
         $this->_movies = $return_movies;

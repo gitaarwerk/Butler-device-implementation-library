@@ -2,7 +2,7 @@
 
 // Environment variables
     // Locale
-    define("CHARSET", "Utf-8");
+    define("CHARSET", "UTF-8");
 
     // Filesystem
     define("FRAMEWORK_ROOT_DIRECTORY", dirname(dirname(__FILE__)));
@@ -30,6 +30,9 @@
         FRAMEWORK_MVC_URL_PATTERN_ACTION
     ); // reads as "controller/controller/action". The "action" is considered as an infinite mask
 
+
+    // HTTP Responses
+    define("FRAMEWORK_POSSIBLE_RESPONSE_TYPES", array("html", "json", "xml"));
 
 // Framework namespacing
 define("FRAMEWORK_CLASS_SEPARATOR", "\\");

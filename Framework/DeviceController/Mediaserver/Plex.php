@@ -6,26 +6,45 @@ class Plex
     extends \Framework\DeviceController\DeviceController
 {
     private $_model;
+    private $_configuration;
 
-    public function __init($arguments)
+    public function __construct(array $configurationArray, array $actions, $arguments = "")
     {
-        $config = $this->getConfiguration();
+        $this->setConfiguration();
 
         $this->_model = new \Framework\DeviceModel\Mediaserver\Plex\Plex(
-            $config->getFriendlyName(),
-            $config->getScheme(),
-            $config->getHostName(),
-            $config->getPort(),
-            $config->getResponseType()
+            $this->_configuration->getFriendlyName(),
+            $this->_configuration->getScheme(),
+            $this->_configuration->getHostName(),
+            $this->_configuration->getPort(),
+            $this->_configuration->getResponseType()
         );
 
-        $model = $this->_model;
+        $movies = $this->_model->getMedia("movies");
+        $list = $movies->getMovieList();
+    }
 
-        /* @var \Framework\DeviceModel\Mediaserver\Plex\Listing\Movies $movies */
+    public function getConfiguration()
+    {
+        return $this->_configuration;
+    }
 
-        $movies = $model->getMedia("movies");
-           var_dump($movies->getMovieList());
+    public function setConfiguration()
+    {
+        $dataLoader = new \Framework\Build\Dataloader(
+            FRAMEWORK_ROOT_DIRECTORY . FRAMEWORK_DIRECTORY_SEPARATOR . "DeviceTemplates" . FRAMEWORK_DIRECTORY_SEPARATOR . "plex.json",
+            "JSON"
+        );
 
+        $data = $dataLoader->getData();
+        if (count($data) > 0)
+        {
+            $this->_configuration = new \Framework\Build\DeviceConfiguration($data);
+        }
+        else
+        {
+            \Framework\Defaults\Exceptions\Exception::Error("no device found...");
+        }
     }
 }
 ?>

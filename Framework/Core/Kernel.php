@@ -11,10 +11,10 @@ class Kernel
     public static function Start()
     {
         // execute settings
-        self::_executeSettings();
+        self::executeSettings();
 
-        // start request handling...
-        \Framework\Core\Request::initialize();
+        // start request handling
+        \Framework\Core\Headers::setHeaders();
 
         if (FRAMEWORK_DEVELOPMENT_ENVIRONMENT === true)
         {
@@ -43,7 +43,7 @@ class Kernel
         return (bool)true;
     }
 
-    private static function _executeSettings()
+    private static function executeSettings()
     {
         // execute development environment settings
         if (FRAMEWORK_DEVELOPMENT_ENVIRONMENT === true)
