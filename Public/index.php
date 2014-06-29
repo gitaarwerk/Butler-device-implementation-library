@@ -8,7 +8,10 @@ $url = \Framework\Defaults\Type\String::DEFAULT_VALUE;
 // load url before the unset globals is done
 if (isset($_GET["url"]))
 {
-    $url = $_GET["url"];
+    $url = \Framework\Core\CoreFunctions::cleanURI($_GET["url"]);
+
+    // override accept headers, when extension is given, also strips the extension.
+    $url = \Framework\Core\Headers::setAcceptHeaderOverride($url);
 }
 
 \Framework\Core\CoreFunctions::removeMagicQuotes();

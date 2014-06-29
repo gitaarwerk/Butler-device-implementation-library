@@ -16,6 +16,9 @@ class Kernel
         // start request handling
         \Framework\Core\Headers::setHeaders();
 
+        $headers = new \Framework\Core\Request();
+
+
         if (FRAMEWORK_DEVELOPMENT_ENVIRONMENT === true)
         {
             // Call execution timer to loop trough whole event and starts it

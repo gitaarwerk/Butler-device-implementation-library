@@ -17,10 +17,10 @@ class Response
             return;
         }
 
-        $this->setResponseHeader();
+        $this->setRequestHeaders();
     }
 
-    private function setResponseHeader()
+    private function setRequestHeaders()
     {
         $this->_responseHeader = \Framework\Core\Headers::getHeaders();
     }

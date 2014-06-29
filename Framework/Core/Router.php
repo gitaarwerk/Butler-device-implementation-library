@@ -14,6 +14,7 @@ class Router
         $actions = array();
 
         $urlArray = explode(FRAMEWORK_URL_PARTIAL_SEPARATOR, $url);
+
         $urlPatternMaskArray = explode(FRAMEWORK_MVC_URL_PATTERN_SEPARATOR, $urlPatternMask);
 
         if (count($urlArray) > 0 && count($urlPatternMaskArray) > 0)
@@ -38,7 +39,7 @@ class Router
 
             // glue arrays back together
             $controllers = implode(FRAMEWORK_CLASS_SEPARATOR, $controllers);
-            $this->_controller = (string)FRAMEWORK_CLASS_ROOT_DIRECTORY . FRAMEWORK_CLASS_SEPARATOR . FRAMEWORK_CONTROLLER_DIRECTORY . FRAMEWORK_CLASS_SEPARATOR . $controllers;
+            $this->_controller = FRAMEWORK_CLASS_ROOT_DIRECTORY . FRAMEWORK_CLASS_SEPARATOR . FRAMEWORK_CONTROLLER_DIRECTORY . FRAMEWORK_CLASS_SEPARATOR . $controllers;
 
             // sets action if there are any
             if (count($actions)  > 1)

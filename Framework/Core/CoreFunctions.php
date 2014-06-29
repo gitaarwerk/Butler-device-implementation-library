@@ -5,10 +5,16 @@ namespace Framework\Core;
 class CoreFunctions
     extends \Framework\Defaults\DefaultClass
 {
+
+    public static function cleanURI($url)
+    {
+        $url = trim(rawurldecode($url));
+
+        return $url;
+    }
+
     private static function stripSlashesDeep($value)
     {
-        echo 'done';
-
         $value = is_array($value) ? array_map("stripSlashesDeep", $value) : stripslashes($value);
 
         return $value;

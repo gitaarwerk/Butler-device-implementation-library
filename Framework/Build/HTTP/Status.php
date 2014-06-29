@@ -1,6 +1,6 @@
 <?php
 
-namespace Framework\Build;
+namespace Framework\Build\HTTP;
 
 class Status
 {
