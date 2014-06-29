@@ -7,4 +7,5 @@ class ContentType
     const JSON = "application/json";
     const XML = "application/xml";
     const HTML = "text/html";
+    const PLAIN = "text/plain";
 }

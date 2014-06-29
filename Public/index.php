@@ -11,7 +11,7 @@ if (isset($_GET["url"]))
     $url = \Framework\Core\CoreFunctions::cleanURI($_GET["url"]);
 
     // override accept headers, when extension is given, also strips the extension.
-    $url = \Framework\Core\Headers::setAcceptHeaderOverride($url);
+    $url = \Framework\Core\Headers::setHeaderContentTypeOverride($url);
 }
 
 \Framework\Core\CoreFunctions::removeMagicQuotes();
