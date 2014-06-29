@@ -34,7 +34,7 @@
 
 
     // HTTP Responses
-    define("FRAMEWORK_ALLOWED_RESPONSE_TYPES", serialize(array("html", "json", "xml")));
+    define("FRAMEWORK_ALLOWED_RESPONSE_TYPES", serialize(array("json", "xml", "html")));
 
 // Framework namespacing
 define("FRAMEWORK_CLASS_SEPARATOR", "\\");

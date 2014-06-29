@@ -20,25 +20,12 @@ class Request
 
         for ($i = 0; $i < count($serverAcceptHeader); $i++)
         {
-            $responseType = $serverAcceptHeader[$i];
+             $responseType = $serverAcceptHeader[$i];
 
-
-            if (in_array($responseType, unserialize(FRAMEWORK_ALLOWED_RESPONSE_TYPES)) === true)
+            if (in_array($responseType, \Framework\Core\Headers::getAllowedContentTypes()) === true)
             {
                 return $responseType;
             }
         }
-
-        var_dump($serverAcceptHeader);
-
-        // $acceptHeaders = \Framework\Defaults\Type\String::DEFAULT_VALUE;
-           echo 'header accept:';
-        $result = strpos($this->_headers["Accept"], "application/json");
-
-        var_dump($result);
-        echo '<hr>';
-        var_dump($this->_headers["Accept"]);
-
-
     }
 }

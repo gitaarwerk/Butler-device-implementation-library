@@ -6,7 +6,7 @@ class Headers
     extends \Framework\Defaults\DefaultClass
 {
     private static $_headers = \Framework\Defaults\Type\Object::DEFAULT_VALUE;
-    private static $_allowedContentTypes = \Framework\Defaults\Type\ArrayCollection::DEFAULT_VALUE;
+    private static $_allowedContentTypes = array();
     private static $_outputContentType = \Framework\Defaults\Type\String::DEFAULT_VALUE;
 
     public static function getHeaders()
@@ -23,7 +23,7 @@ class Headers
     {
         $contentTypeReturn = \Framework\Defaults\Type\String::DEFAULT_VALUE;
 
-        switch($contentType)
+        switch(strtolower($contentType))
         {
             case "json":
                 $contentTypeReturn = \Framework\Build\HTTP\ContentType::JSON;

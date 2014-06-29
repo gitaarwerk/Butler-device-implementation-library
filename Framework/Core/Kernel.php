@@ -15,6 +15,7 @@ class Kernel
 
         // start request handling
         \Framework\Core\Headers::setHeaders();
+        \Framework\Core\Headers::setAllowedContentTypes();
 
         $headers = new \Framework\Core\Request();
 
