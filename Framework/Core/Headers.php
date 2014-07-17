@@ -5,21 +5,17 @@ namespace Framework\Core;
 class Headers
     extends \Framework\Defaults\DefaultClass
 {
-    private static $_headers = \Framework\Defaults\Type\Object::DEFAULT_VALUE;
-    private static $_allowedContentTypes = array();
-    private static $_outputContentType = \Framework\Defaults\Type\String::DEFAULT_VALUE;
+    private $_headers = \Framework\Defaults\Type\Object::DEFAULT_VALUE;
+    private $_allowedContentTypes = array();
+    private $_outputContentType = \Framework\Defaults\Type\String::DEFAULT_VALUE;
+    private $_outputContentTypeOverride = \Framework\Defaults\Type\String::DEFAULT_VALUE;
 
-    public static function getHeaders()
+    public function __construct()
     {
-        return self::$_headers;
+        $this->setHeaders();
     }
 
-    public static function setHeaders()
-    {
-        self::$_headers = apache_request_headers();
-    }
-
-    private static function checkContentType($contentType)
+    private function checkContentType($contentType)
     {
         $contentTypeReturn = \Framework\Defaults\Type\String::DEFAULT_VALUE;
 
@@ -37,39 +33,61 @@ class Headers
             case "text":
                 $contentTypeReturn = \Framework\Build\HTTP\ContentType::PLAIN;
                 break;
+            case "csv":
+                $contentTypeReturn = \Framework\Build\HTTP\ContentType::CSV;
+                break;
         }
 
         return $contentTypeReturn;
     }
 
-    public static function setHeaderContentTypeOverride($url)
+    /**
+     * Sets an override whenever there is a valid and accepted extension in the URL.
+     * @param $url
+     * @return string Sets an override whenever there is a valid and accepted extension in the URL.
+     */
+    public function setHeaderContentTypeOverride($url)
     {
         // explode url on dots
         $url = explode(FRAMEWORK_MVC_URL_PATTERN_RESPONSE_TYPE_SEPARATOR, $url);
 
-        // override from extension, using pop so always checks the last addition.
-        $extension = \Framework\Core\CoreFunctions::cleanURI(array_pop($url));
-
-        if (in_array($extension, unserialize(FRAMEWORK_ALLOWED_RESPONSE_TYPES)) === true)
+        // only pops array when a response type url pattern is given.
+        if (count($url) > 1)
         {
-            self::$_outputContentType = self::checkContentType($extension);
+            // override from extension, using pop so always checks the last addition.
+            $extension = \Framework\Core\CoreFunctions::cleanURI(array_pop($url));
+
+            if (in_array($extension, unserialize(FRAMEWORK_ALLOWED_RESPONSE_TYPES)) === true)
+            {
+                $this->_outputContentTypeOverride = $this->checkContentType($extension);
+            }
         }
 
         return (string)current($url);
     }
 
-    public static function setAllowedContentTypes()
+    public function getAllowedContentTypes()
+    {
+        return (array)$this->_allowedContentTypes;
+    }
+
+    public function setAllowedContentTypes()
     {
         $contentTypes = unserialize(strtolower(FRAMEWORK_ALLOWED_RESPONSE_TYPES));
 
         for ($i = 0; $i < count($contentTypes); $i++)
         {
-            array_push(self::$_allowedContentTypes, self::checkContentType($contentTypes[$i]));
+            array_push($this->_allowedContentTypes, $this->checkContentType($contentTypes[$i]));
         }
     }
 
-    public static function getAllowedContentTypes()
+    public function getHeaders()
     {
-        return (array)self::$_allowedContentTypes;
+        return $this->_headers;
+    }
+
+    public function setHeaders()
+    {
+        $this->_headers = apache_request_headers();
     }
 }

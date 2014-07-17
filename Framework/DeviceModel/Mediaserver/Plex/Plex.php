@@ -127,19 +127,19 @@ class Plex
         switch($type)
         {
             case 'movies':
-                /* @return object \Framework\DeviceModel\Mediaserver\Plex\Movies $return */
+                /** @var \Framework\DeviceModel\Mediaserver\Plex\Listing\Movies $return */
                 $return = new \Framework\DeviceModel\Mediaserver\Plex\Listing\Movies($this->_movies);
                 break;
             case 'photos':
-                /* @return object \Framework\DeviceModel\Mediaserver\Plex\Photos $return */
+                /** @var \Framework\DeviceModel\Mediaserver\Plex\Listing\Photos $return */
                 $return = new \Framework\DeviceModel\Mediaserver\Plex\Listing\Photos($this->_photos);
                 break;
             case 'tvshows':
-                /* @return object \Framework\DeviceModel\Mediaserver\Plex\TVShows $return */
+                /** @var \Framework\DeviceModel\Mediaserver\Plex\Listing\TVShows $return */
                 $return = new \Framework\DeviceModel\Mediaserver\Plex\Listing\TVShows($this->_tvshows);
                 break;
             case 'music':
-                /* @return object \Framework\DeviceModel\Mediaserver\Plex\Music $return */
+                /** @var \Framework\DeviceModel\Mediaserver\Plex\Listing\Music $return */
                 $return = new \Framework\DeviceModel\Mediaserver\Plex\Listing\Music($this->_music);
                 break;
         }

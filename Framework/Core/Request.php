@@ -4,28 +4,46 @@ namespace Framework\Core;
 
 class Request
 {
-    private $_headers = \Framework\Defaults\Type\ArrayCollection::DEFAULT_VALUE;
+    private $headers = \Framework\Defaults\Type\ArrayCollection::DEFAULT_VALUE;
     private $_allowedContentTypes = \Framework\Defaults\Type\ArrayCollection::DEFAULT_VALUE;
 
-    public function __construct()
+    public function __construct($headers)
     {
-        $this->_headers = (array)\Framework\Core\Headers::getHeaders();
-
-        $this->getAcceptHeaders();
+        $this->setRequestHeaders($headers);
     }
 
-    public function getAcceptHeaders()
+//    private function determineAllowedAcceptHeaders($acceptHeaders)
+//    {
+//        $acceptHeaders = $this->getAcceptHeaders();
+//
+//        $serverAcceptHeader = explode(",", $acceptHeaders);
+//
+//        for ($i = 0; $i < count($serverAcceptHeader); $i++)
+//        {
+//             $responseType = $serverAcceptHeader[$i];
+//
+//            if (in_array($responseType, \Framework\Core\Headers::getAllowedContentTypes()) === true)
+//            {
+//                return $responseType;
+//            }
+//        }
+//    }
+
+    public function setAllowedAcceptHeaders()
     {
-        $serverAcceptHeader = explode(",", $this->_headers["Accept"]);
 
-        for ($i = 0; $i < count($serverAcceptHeader); $i++)
-        {
-             $responseType = $serverAcceptHeader[$i];
+    }
 
-            if (in_array($responseType, \Framework\Core\Headers::getAllowedContentTypes()) === true)
-            {
-                return $responseType;
-            }
-        }
+    public function setRequestHeaders($headers)
+    {
+        $this->headers = (array)$headers;
+    }
+
+    /**
+     * @return array $this->headers Returns headers set by the request
+     */
+    public function getRequestHeaders()
+    {
+        return $this->headers;
     }
 }

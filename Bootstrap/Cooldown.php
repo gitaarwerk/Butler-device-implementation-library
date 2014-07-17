@@ -1,3 +1,3 @@
 <?php
 
-\Framework\Core\Kernel::Stop();
+$kernel->shutDown();

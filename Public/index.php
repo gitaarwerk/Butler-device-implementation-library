@@ -1,21 +1,6 @@
 <?php
-echo '<pre>';
-// Load the bootrstrapper
-require_once(dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR . "Bootstrap" . DIRECTORY_SEPARATOR . "Bootstrap.php");
 
-$url = \Framework\Defaults\Type\String::DEFAULT_VALUE;
-
-// load url before the unset globals is done
-if (isset($_GET["url"]))
-{
-    $url = \Framework\Core\CoreFunctions::cleanURI($_GET["url"]);
-
-    // override accept headers, when extension is given, also strips the extension.
-    $url = \Framework\Core\Headers::setHeaderContentTypeOverride($url);
-}
-
-\Framework\Core\CoreFunctions::removeMagicQuotes();
-\Framework\Core\CoreFunctions::unregisterGlobals();
+require_once("header.php");
 
 if (\Framework\Defaults\Type\String::isDefault($url) === false)
 {
@@ -25,13 +10,28 @@ if (\Framework\Defaults\Type\String::isDefault($url) === false)
     if (class_exists($router->getController()) === true)
     {
         $controller = $router->getController();
-        $test = new $controller(array(), $router->getAction());
+
+        if ($router->getController() === "\\Framework\\DeviceController\\Mediaserver\\Plex")
+        {
+            $dataLoader = new \Framework\Build\Dataloader(
+                FRAMEWORK_ROOT_DIRECTORY .
+                FRAMEWORK_DIRECTORY_SEPARATOR .
+                "DeviceTemplates" .
+                FRAMEWORK_DIRECTORY_SEPARATOR .
+                "plex.json",
+                "JSON"
+            );
+
+            $data = $dataLoader->getData();
+            $configuration = new \Framework\Build\DeviceConfiguration($data);
+
+        }
+        $page = new $controller($configuration, $router->getAction());
     }
     else
     {
         \Framework\Defaults\Exceptions\Exception::Notice("Invalid device type given.");
     }
-
 }
 else
 {
@@ -39,4 +39,4 @@ else
     echo "homepage...";
 }
 
-require_once(dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR . "Bootstrap" . DIRECTORY_SEPARATOR . "Cooldown.php");
+require_once("footer.php");

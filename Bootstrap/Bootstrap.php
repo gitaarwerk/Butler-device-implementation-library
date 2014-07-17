@@ -24,4 +24,7 @@ $classLoader = new SplClassLoader("Framework", FRAMEWORK_ROOT_DIRECTORY); // loa
 $classLoader->register();
 
 
-\Framework\Core\Kernel::Start();
+$kernel = new \Framework\Core\Kernel;
+$kernelStarted = $kernel->startUp();
+
+$headers = $kernel->getHeaders();
