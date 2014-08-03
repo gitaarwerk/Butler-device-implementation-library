@@ -2,6 +2,10 @@
 
 namespace Framework\Defaults;
 
+/**
+ * Class DefaultClass
+ * @package Framework\Defaults
+ */
 abstract class DefaultClass
 {
     final public static function __invoke()

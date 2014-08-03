@@ -2,7 +2,10 @@
 
 namespace Framework\DeviceModel\Mediaserver\Plex\Listing;
 
-/* @package Plex */
+/**
+ * Class Movies
+ * @package Framework\DeviceModel\Mediaserver\Plex\Listing
+ */
 class Movies
     implements  \Framework\Interfaces\MediaListings
 {
@@ -11,12 +14,18 @@ class Movies
     private $_movies;
     private $_folderFilter = array();
 
+    /**
+     * @param $movieUrls
+     */
     public function __construct($movieUrls)
     {
         $this->_movieUrls = $movieUrls;
     }
 
-    /* @return array $this->_movies */
+    /**
+     * @param string $listType
+     * @return array
+     */
     public function getMovieList($listType = \Framework\DeviceModel\Mediaserver\Plex\LIBRARY_LISTING_ALL)
     {
         $return_movies = array();
@@ -43,12 +52,18 @@ class Movies
         return (array)$this->_movies;
     }
 
+    /**
+     * @return array
+     */
     public function getMovies()
     {
         return (array)$this->_movies;
     }
 
-    /* @return $this */
+    /**
+     * @param $filter
+     * @return $this
+     */
     public function setFilter($filter)
     {
         $filter = trim(strtolower($filter));
@@ -62,13 +77,17 @@ class Movies
         return $this;
     }
 
-    /* @return array $this->_folderFilter */
+    /**
+     * @return array
+     */
     public function geCurrentFilter()
     {
         return (array)$this->_folderFilter;
     }
 
-    /* @return array $return_titles */
+    /**
+     * @return array
+     */
     public function getFilters()
     {
         $return_titles = array();

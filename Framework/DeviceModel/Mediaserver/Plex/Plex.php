@@ -14,7 +14,10 @@ const LIBRARY_LISTING_NEWEST = '/newest'; // recently released
 const LIBRARY_LISTING_ALL = '/all'; // view all
 const LIBRARY_LISTING_BY_COLLECTION = '/collection'; // view all by folder
 
- /* @package Plex */
+/**
+ * Class Plex
+ * @package Framework\DeviceModel\Mediaserver\Plex
+ */
 class Plex
     extends \Framework\DeviceModel\DeviceModel
 {
@@ -27,7 +30,14 @@ class Plex
     private $_photos = array();
     private $_music = array();
 
-	public function __construct($friendlyName, $scheme, $hostname, $port, $responseType)
+    /**
+     * @param $friendlyName
+     * @param $scheme
+     * @param $hostname
+     * @param $port
+     * @param $responseType
+     */
+    public function __construct($friendlyName, $scheme, $hostname, $port, $responseType)
 	{
         // set responseType and friendly name
         $this->_responseType = $responseType;
@@ -45,6 +55,9 @@ class Plex
         $this->_initMedia();
 	}
 
+    /**
+     *
+     */
     private function _initMedia()
     {
         $sectionUrl = $this->_url . \Framework\DeviceModel\Mediaserver\Plex\LIBRARY_URLPART . \Framework\DeviceModel\Mediaserver\Plex\LIBRARY_SECTION_URLPART;

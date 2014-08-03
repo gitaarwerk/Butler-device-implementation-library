@@ -2,6 +2,10 @@
 
 namespace Framework\Build\HTTP;
 
+/**
+ * Class Status
+ * @package Framework\Build\HTTP
+ */
 class Status
 {
     // 100

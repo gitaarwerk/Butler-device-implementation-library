@@ -2,6 +2,10 @@
 
 namespace Framework\DeviceController\Mediaserver;
 
+/**
+ * Class Plex
+ * @package Framework\DeviceController\Mediaserver
+ */
 class Plex
     extends \Framework\DeviceController\DeviceController
     implements  \Framework\Interfaces\Controller\HTTPMethods,
@@ -12,6 +16,11 @@ class Plex
     private $_model;
     private $_configuration;
 
+    /**
+     * @param $configuration
+     * @param array $actions
+     * @param string $arguments
+     */
     public function __construct($configuration, array $actions, $arguments = "")
     {
         $this->setConfiguration($configuration);
@@ -30,7 +39,7 @@ class Plex
         /** @var \Framework\DeviceModel\Mediaserver\Plex\Listing\Movies $plex */
         $plex = $this->getDeviceModel()->getMedia("movies");
 
-        $plex->getMovieList();
+        // var_dump($plex->getMovieList());
     }
 
     public function Get()
@@ -54,6 +63,10 @@ class Plex
         return $this->_model;
     }
 
+    /**
+     * @param $deviceModel
+     * @return $this
+     */
     public function setDeviceModel($deviceModel)
     {
         $this->_model = $deviceModel;
@@ -61,11 +74,18 @@ class Plex
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
     public function getConfiguration()
     {
         return $this->_configuration;
     }
 
+    /**
+     * @param $configuration
+     * @return $this
+     */
     public function setConfiguration($configuration)
     {
         if (\Framework\Defaults\Type\Object::isDefault($configuration) === false)

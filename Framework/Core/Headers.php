@@ -2,6 +2,10 @@
 
 namespace Framework\Core;
 
+/**
+ * Class Headers
+ * @package Framework\Core
+ */
 class Headers
     extends \Framework\Defaults\DefaultClass
 {
@@ -10,11 +14,18 @@ class Headers
     private $_outputContentType = \Framework\Defaults\Type\String::DEFAULT_VALUE;
     private $_outputContentTypeOverride = \Framework\Defaults\Type\String::DEFAULT_VALUE;
 
+    /**
+     *
+     */
     public function __construct()
     {
         $this->setHeaders();
     }
 
+    /**
+     * @param $contentType
+     * @return string
+     */
     private function checkContentType($contentType)
     {
         $contentTypeReturn = \Framework\Defaults\Type\String::DEFAULT_VALUE;
@@ -66,11 +77,17 @@ class Headers
         return (string)current($url);
     }
 
+    /**
+     * @return array
+     */
     public function getAllowedContentTypes()
     {
         return (array)$this->_allowedContentTypes;
     }
 
+    /**
+     *
+     */
     public function setAllowedContentTypes()
     {
         $contentTypes = unserialize(strtolower(FRAMEWORK_ALLOWED_RESPONSE_TYPES));
@@ -81,11 +98,17 @@ class Headers
         }
     }
 
+    /**
+     * @return null
+     */
     public function getHeaders()
     {
         return $this->_headers;
     }
 
+    /**
+     *
+     */
     public function setHeaders()
     {
         $this->_headers = apache_request_headers();

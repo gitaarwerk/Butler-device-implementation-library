@@ -2,6 +2,10 @@
 
 namespace Framework\Data\Types;
 
+/**
+ * Class XML
+ * @package Framework\Data\Types
+ */
 class XML
     extends \Framework\Defaults\DefaultClass
 	implements \Framework\Interfaces\Dataformatter
@@ -12,8 +16,12 @@ class XML
 	{
 		$this->_dataObject = \Framework\Defaults\Type\Object::DEFAULT_VALUE;
 	}
-	
-	public function setData($dataObject)
+
+    /**
+     * @param $dataObject
+     * @return $this
+     */
+    public function setData($dataObject)
 	{
         $data = '';
 
@@ -31,8 +39,11 @@ class XML
 
         return $this;
 	}
-	
-	public function getData()
+
+    /**
+     * @return null
+     */
+    public function getData()
 	{
 		return $this->_dataObject;
 	}

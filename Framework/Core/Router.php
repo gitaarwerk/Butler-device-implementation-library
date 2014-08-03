@@ -2,12 +2,20 @@
 
 namespace Framework\Core;
 
+/**
+ * Class Router
+ * @package Framework\Core
+ */
 class Router
     extends \Framework\Defaults\DefaultClass
 {
     private $_controller = \Framework\Defaults\Type\String::DEFAULT_VALUE;
     private $_action = array();
 
+    /**
+     * @param $url
+     * @param string $urlPatternMask
+     */
     public function __construct($url, $urlPatternMask = FRAMEWORK_MVC_URL_PATTERN)
     {
         $controllers = array();
@@ -53,7 +61,9 @@ class Router
         }
     }
 
-    /* @return string $this->_action */
+    /**
+     * @return $this->_controller
+     */
     public function getController()
     {
         if (\Framework\Defaults\Type\String::isDefault($this->_controller) !== true)
@@ -67,7 +77,9 @@ class Router
 
     }
 
-    /* @return array $this->_action */
+    /*
+     *
+     */
     public function getAction()
     {
         return (array)$this->_action;

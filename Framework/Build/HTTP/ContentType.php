@@ -2,6 +2,10 @@
 
 namespace Framework\Build\HTTP;
 
+/**
+ * Class ContentType
+ * @package Framework\Build\HTTP
+ */
 class ContentType
 {
     const CSV = "text/csv";

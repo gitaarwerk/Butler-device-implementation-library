@@ -2,6 +2,10 @@
 
 namespace Framework\Build;
 
+/**
+ * Class DeviceConfiguration
+ * @package Framework\Build
+ */
 class DeviceConfiguration
     extends \Framework\Defaults\DefaultClass
 {
@@ -19,24 +23,41 @@ class DeviceConfiguration
         }
     }
 
+    /**
+     * @return string
+     */
     public function getFriendlyName()
     {
         return (string)$this->_deviceConfiguration->friendlyName;
     }
 
+    /**
+     * @return string
+     */
     public function getScheme()
     {
         return (string)$this->_deviceConfiguration->config->protocol;
     }
+
+    /**
+     * @return string
+     */
     public function getHostName()
     {
         return (string)$this->_deviceConfiguration->config->hostname;
     }
 
+    /**
+     * @return int
+     */
     public function getPort()
     {
         return (int)$this->_deviceConfiguration->config->port;
     }
+
+    /**
+     * @return string
+     */
     public function getResponseType()
     {
         return (string)$this->_deviceConfiguration->config->responseType;

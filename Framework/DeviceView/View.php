@@ -2,6 +2,10 @@
 
 namespace Framework\DeviceView;
 
+/**
+ * Class View
+ * @package Framework\DeviceView
+ */
 abstract class View
     extends \Framework\Defaults\DefaultClass
 {

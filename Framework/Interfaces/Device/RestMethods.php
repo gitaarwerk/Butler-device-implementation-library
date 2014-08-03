@@ -2,6 +2,10 @@
 
 namespace Framework\Interfaces\Device;
 
+/**
+ * Interface RestMethods
+ * @package Framework\Interfaces\Device
+ */
 interface RestMethods
 {
     public function HTTPGet();

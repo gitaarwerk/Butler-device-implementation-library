@@ -2,11 +2,18 @@
 
 namespace Framework\Core;
 
+/**
+ * Class Response
+ * @package Framework\Core
+ */
 class Response
     extends \Framework\Defaults\DefaultClass
 {
     private $_responseHeader;
 
+    /**
+     *
+     */
     public function __construct()
     {
         if (\Framework\Defaults\Type\String::isEmpty(FRAMEWORK_RESPONSE_OVERRIDE) === false)
@@ -20,6 +27,9 @@ class Response
         $this->setRequestHeaders();
     }
 
+    /**
+     *
+     */
     private function setRequestHeaders()
     {
         $this->_responseHeader = \Framework\Core\Headers::getHeaders();

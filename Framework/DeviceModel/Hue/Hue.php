@@ -2,13 +2,21 @@
 
 namespace Framework\DeviceModel\Hue;
 
-
+/**
+ * Class Hue
+ * @package Framework\DeviceModel\Hue
+ */
 class Hue
     extends \Framework\DeviceModel\Device
 {
 	private $_url;
-	
-	public function __construct($scheme, $hostname, $port)
+
+    /**
+     * @param $scheme
+     * @param $hostname
+     * @param $port
+     */
+    public function __construct($scheme, $hostname, $port)
 	{	
 		$urlBuilder = new \Framework\Build\Url();
 		$urlBuilder->setProtocol($scheme);
@@ -28,9 +36,11 @@ class Hue
 	{
 		return $this->_url;
 	}
-	
-	
-	public function setColors()
+
+    /**
+     *
+     */
+    public function setColors()
 	{
 		$command = $this->_url . 'api/newdeveloper/lights/65535';
 		// echo fopen($command, "r");

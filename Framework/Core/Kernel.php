@@ -3,6 +3,11 @@
 namespace Framework\Core;
 
 // may not extend default class
+
+/**
+ * Class Kernel
+ * @package Framework\Core
+ */
 class Kernel
 {
     private $_debug = array();
@@ -11,6 +16,9 @@ class Kernel
     private $_request = \Framework\Defaults\Type\Object::DEFAULT_VALUE;
     private $_response = \Framework\Defaults\Type\Object::DEFAULT_VALUE;
 
+    /**
+     *
+     */
     public function __construct()
     {
         // execute settings
@@ -24,6 +32,9 @@ class Kernel
         }
     }
 
+    /**
+     *
+     */
     public function startUp()
     {
         $this->setHeaders();
@@ -32,6 +43,9 @@ class Kernel
         $this->setResponse($this->getHeaders());
     }
 
+    /**
+     * @return bool
+     */
     public function shutDown()
     {
         if (FRAMEWORK_DEVELOPMENT_ENVIRONMENT === true)
@@ -49,6 +63,9 @@ class Kernel
         return (bool)true;
     }
 
+    /**
+     *
+     */
     private function executeSettings()
     {
         // execute development environment settings
@@ -71,21 +88,33 @@ class Kernel
         return $this->_headers;
     }
 
+    /**
+     * @param $headers
+     */
     public function setRequest($headers)
     {
         $this->_request = new \Framework\Core\Request($headers);
     }
 
+    /**
+     * @param $headers
+     */
     public function setResponse($headers)
     {
         $this->_response = new \Framework\Core\Response($headers);
     }
 
+    /**
+     * @return null
+     */
     public function getRequest()
     {
         return $this->_request;
     }
 
+    /**
+     * @return null
+     */
     public function getResponse()
     {
         return $this->_response;

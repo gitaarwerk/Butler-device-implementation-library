@@ -2,12 +2,20 @@
 
 namespace Framework\Build;
 
+/**
+ * Class Dataloader
+ * @package Framework\Build
+ */
 class Dataloader
     extends \Framework\Defaults\DefaultClass
 {
 	private $_dataObject = array();
-	
-	public function __construct($dataSource, $dataType)
+
+    /**
+     * @param $dataSource
+     * @param $dataType
+     */
+    public function __construct($dataSource, $dataType)
 	{
 		if(\Framework\Defaults\Type\String::isDefault($dataSource) === false)
 		{
@@ -26,8 +34,11 @@ class Dataloader
 			}
 		}
 	}
-	
-	public function getData()
+
+    /**
+     * @return array
+     */
+    public function getData()
 	{
 		return $this->_dataObject;
 	}

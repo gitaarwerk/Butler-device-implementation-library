@@ -2,12 +2,20 @@
 
 namespace Framework\Data\Types;
 
+/**
+ * Class JSON
+ * @package Framework\Data\Types
+ */
 class JSON
     extends \Framework\Defaults\DefaultClass
 	implements \Framework\Interfaces\DataFormatter
 {
 	public $_dataObject;
 
+    /**
+     * @param $dataObject
+     * @return $this
+     */
     public function setData($dataObject)
     {
         // use file_get_contents for local data
@@ -24,8 +32,11 @@ class JSON
 
         return $this;
     }
-	
-	public function getData()
+
+    /**
+     * @return array
+     */
+    public function getData()
 	{
 		return (array)$this->_dataObject;
 	}

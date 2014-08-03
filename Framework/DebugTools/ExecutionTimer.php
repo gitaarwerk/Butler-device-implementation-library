@@ -2,14 +2,16 @@
 
 namespace Framework\DebugTools;
 
-/* @package DebugTools */
+/**
+ * Class ExecutionTimer
+ * @package Framework\DebugTools
+ */
 class ExecutionTimer
     extends \Framework\Defaults\DefaultClass
 {
     private $_startTime;
     private $_endTime;
 
-    /* sets the start time */
     public function startTimer()
     {
         if(FRAMEWORK_DEVELOPMENT_ENVIRONMENT === true)
@@ -33,7 +35,9 @@ class ExecutionTimer
         }
     }
 
-    /* @return float $totalTime */
+    /**
+     * @return float
+     */
     public function parseExecutionTime()
     {
         if(FRAMEWORK_DEVELOPMENT_ENVIRONMENT === true)

@@ -2,6 +2,10 @@
 
 namespace Framework\Build;
 
+/**
+ * Class Url
+ * @package Framework\Build
+ */
 class Url
     extends \Framework\Defaults\DefaultClass
 	implements \Framework\Interfaces\GetUrl
@@ -10,8 +14,11 @@ class Url
 	private $_portnumber = \Framework\Defaults\Type\Int::DEFAULT_VALUE;
 	private $_hostname = \Framework\Defaults\Type\String::DEFAULT_VALUE;
 	private $_protocol = \Framework\Defaults\Type\String::DEFAULT_VALUE;
-	
-	private function _constructUrl()
+
+    /**
+     * @return bool
+     */
+    private function _constructUrl()
 	{
 		if ( \Framework\Defaults\Type\String::isDefault($this->_protocol) === false )
 		{
@@ -38,8 +45,12 @@ class Url
 
 		return true;		
 	}
-	
-	public function setPortnumber($portnumber)
+
+    /**
+     * @param $portnumber
+     * @return $this
+     */
+    public function setPortnumber($portnumber)
 	{
 		if ( \Framework\Defaults\Type\Int::isDefault($portnumber) === false)
 		{
@@ -48,8 +59,12 @@ class Url
 		
 		return $this;
 	}
-	
-	public function setHostname($hostname)
+
+    /**
+     * @param $hostname
+     * @return $this
+     */
+    public function setHostname($hostname)
 	{
 		if ( \Framework\Defaults\Type\String::isDefault($hostname) === false)
 		{
@@ -58,8 +73,12 @@ class Url
 		
 		return $this;
 	}
-	
-	public function setProtocol($protocol)
+
+    /**
+     * @param $protocol
+     * @return $this
+     */
+    public function setProtocol($protocol)
 	{
 		if ( \Framework\Defaults\Type\String::isDefault($protocol) === false)
 		{
@@ -68,8 +87,11 @@ class Url
 		
 		return $this;	
 	}
-	
-	public function getUrl()
+
+    /**
+     * @return \Framework\Defaults\Exceptions\function|string
+     */
+    public function getUrl()
 	{
 		if ($this->_constructUrl() === true)
 		{

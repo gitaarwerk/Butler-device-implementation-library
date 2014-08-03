@@ -2,6 +2,10 @@
 
 namespace Framework\DebugTools;
 
+/**
+ * Class ErrorReporting
+ * @package Framework\DebugTools
+ */
 class ErrorReporting
     extends \Framework\Defaults\DefaultClass
 {

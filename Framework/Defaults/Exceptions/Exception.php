@@ -2,6 +2,10 @@
 
 namespace Framework\Defaults\Exceptions;
 
+/**
+ * Class Exception
+ * @package Framework\Defaults\Exceptions
+ */
 class Exception
 {
 	/**

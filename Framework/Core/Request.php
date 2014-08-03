@@ -2,6 +2,10 @@
 
 namespace Framework\Core;
 
+/**
+ * Class Request
+ * @package Framework\Core
+ */
 class Request
 {
     private $headers = \Framework\Defaults\Type\ArrayCollection::DEFAULT_VALUE;
@@ -29,11 +33,17 @@ class Request
 //        }
 //    }
 
+    /**
+     *
+     */
     public function setAllowedAcceptHeaders()
     {
 
     }
 
+    /**
+     * @param $headers
+     */
     public function setRequestHeaders($headers)
     {
         $this->headers = (array)$headers;

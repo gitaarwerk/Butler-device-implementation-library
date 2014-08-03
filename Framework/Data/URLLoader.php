@@ -2,12 +2,19 @@
 
 namespace Framework\Data;
 
+/**
+ * Class URLLoader
+ * @package Framework\Data
+ */
 class URLLoader
     extends \Framework\Defaults\DefaultClass
 {
     private static $_curl;
     private static $_headers;
 
+    /**
+     * @param $headers
+     */
     private static function initialize($headers)
     {
         $return_headers = array();
@@ -36,12 +43,21 @@ class URLLoader
         self::$_curl = curl_init();
     }
 
+    /**
+     *
+     */
     private static function unload()
     {
         // Close request to clear up some resources
         curl_close(self::$_curl);
     }
 
+    /**
+     * @param $url
+     * @param string $data
+     * @param string $headers
+     * @return mixed
+     */
     public static function put($url, $data = '', $headers = '')
     {
         self::initialize($headers);
@@ -49,6 +65,12 @@ class URLLoader
         return $response;
     }
 
+    /**
+     * @param $url
+     * @param string $data
+     * @param string $headers
+     * @return mixed
+     */
     public static function get($url, $data = '', $headers = '')
     {
         self::initialize($headers);
