@@ -14,7 +14,7 @@ class XML
 	
 	public function __construct()
 	{
-		$this->_dataObject = \Framework\Defaults\Type\Object::DEFAULT_VALUE;
+		$this->dataObject = \Framework\Defaults\Type\Object::DEFAULT_VALUE;
 	}
 
     /**
@@ -23,8 +23,6 @@ class XML
      */
     public function setData($dataObject)
 	{
-        $data = '';
-
         // use file_get_contents for local data
         if (file_exists($dataObject) === true)
         {
@@ -35,7 +33,7 @@ class XML
             $data = \Framework\Data\URLLoader::get($dataObject, '', 'xml');
         }
 
-		$this->_dataObject = simplexml_load_string($data);
+		$this->dataObject = simplexml_load_string($data);
 
         return $this;
 	}
@@ -45,8 +43,28 @@ class XML
      */
     public function getData()
 	{
-		return $this->_dataObject;
+		return $this->dataObject;
 	}
+
+    /**
+     * Encodes to JSON
+     * @param array $value
+     * @return string
+     */
+    public function encode(array $value)
+    {
+        // return json_encode($value);
+    }
+
+    /**
+     * Decodes JSON
+     * @param $value
+     * @return mixed
+     */
+    public function decode($value)
+    {
+        // return json_decode($value);
+    }
 }
 
 ?>

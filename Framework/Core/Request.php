@@ -9,9 +9,9 @@ namespace Framework\Core;
 class Request
 {
     private $headers = \Framework\Defaults\Type\ArrayCollection::DEFAULT_VALUE;
-    private $_allowedContentTypes = \Framework\Defaults\Type\ArrayCollection::DEFAULT_VALUE;
+    private $allowedContentTypes = \Framework\Defaults\Type\ArrayCollection::DEFAULT_VALUE;
 
-    public function __construct($headers)
+    public function __construct(\Framework\Core\Headers $headers)
     {
         $this->setRequestHeaders($headers);
     }
@@ -42,15 +42,15 @@ class Request
     }
 
     /**
-     * @param $headers
+     * @param \Framework\Core\Headers $headers
      */
-    public function setRequestHeaders($headers)
+    public function setRequestHeaders(\Framework\Core\Headers $headers)
     {
-        $this->headers = (array)$headers;
+        $this->headers = $headers;
     }
 
     /**
-     * @return array $this->headers Returns headers set by the request
+     * @return \Framework\Core\Headers Returns headers set by the request
      */
     public function getRequestHeaders()
     {

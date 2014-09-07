@@ -34,7 +34,21 @@
 
 
     // HTTP Responses
-    define("FRAMEWORK_ALLOWED_RESPONSE_TYPES", serialize(array("json", "xml", "html")));
+    define("FRAMEWORK_RESPONSE_JSON", "json");
+    define("FRAMEWORK_RESPONSE_PLAIN", "txt");
+    define("FRAMEWORK_RESPONSE_HTML", "html");
+    define("FRAMEWORK_RESPONSE_CSV", "csv");
+    define("FRAMEWORK_RESPONSE_XML", "xml");
+
+    define("FRAMEWORK_RESPONSE_DEFAULT", FRAMEWORK_RESPONSE_JSON);
+
+    define("FRAMEWORK_ALLOWED_RESPONSE_TYPES",
+        serialize(array(
+            FRAMEWORK_RESPONSE_JSON,
+            FRAMEWORK_RESPONSE_XML,
+            FRAMEWORK_RESPONSE_HTML,
+            FRAMEWORK_RESPONSE_PLAIN
+        )));
 
 // Framework namespacing
 define("FRAMEWORK_CLASS_SEPARATOR", "\\");

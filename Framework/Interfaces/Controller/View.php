@@ -8,7 +8,7 @@ namespace Framework\Interfaces\Controller;
  */
 interface View
 {
-    public function setView($view);
+    public function setView(\Framework\DeviceView\DeviceView $view);
 
     public function getView();
 }

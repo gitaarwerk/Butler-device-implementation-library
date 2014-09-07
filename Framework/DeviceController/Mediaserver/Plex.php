@@ -13,33 +13,40 @@ class Plex
                 \Framework\Interfaces\Controller\DeviceModel,
                 \Framework\Interfaces\Controller\View
 {
-    private $_model;
-    private $_configuration;
+    private $configuration;
+    private $model;
+    private $view;
 
     /**
      * @param $configuration
      * @param array $actions
      * @param string $arguments
      */
-    public function __construct($configuration, array $actions, $arguments = "")
+    public function __construct(\Framework\Core\Request $request, \Framework\Core\Response $response, \Framework\Build\DeviceConfiguration $configuration, array $actions, $arguments = "")
     {
         $this->setConfiguration($configuration);
 
+        $config = $this->getConfiguration();
+
         // make new deviceModel
         $plexDeviceModel = new \Framework\DeviceModel\Mediaserver\Plex\Plex(
-            $this->_configuration->getFriendlyName(),
-            $this->_configuration->getScheme(),
-            $this->_configuration->getHostName(),
-            $this->_configuration->getPort(),
-            $this->_configuration->getResponseType()
+            $config->getFriendlyName(),
+            $config->getScheme(),
+            $config->getHostName(),
+            $config->getPort(),
+            $config->getResponseType()
         );
 
+        // set Model
         $this->setDeviceModel($plexDeviceModel);
 
-        /** @var \Framework\DeviceModel\Mediaserver\Plex\Listing\Movies $plex */
-        $plex = $this->getDeviceModel()->getMedia("movies");
+        // attach device view
+        $plexDeviceView = new \Framework\DeviceView\Mediaserver\Mediaserver($request, $response, $this->getDeviceModel());
 
-        // var_dump($plex->getMovieList());
+
+
+        // Set View
+        $this->setView($plexDeviceView);
     }
 
     public function Get()
@@ -52,15 +59,22 @@ class Plex
     public function Put(){}
     public function Patch(){}
 
-    public function getView(){}
-    public function setView($view){}
+    public function getView()
+    {
+        return $this->view;
+    }
+
+    public function setView(\Framework\DeviceView\DeviceView $value)
+    {
+        $this->view = $value;
+    }
 
     /**
      * @return \Framework\DeviceModel\Mediaserver\Plex\Plex
      */
     public function getDeviceModel()
     {
-        return $this->_model;
+        return $this->model;
     }
 
     /**
@@ -69,28 +83,28 @@ class Plex
      */
     public function setDeviceModel($deviceModel)
     {
-        $this->_model = $deviceModel;
+        $this->model = $deviceModel;
 
         return $this;
     }
 
     /**
-     * @return mixed
+     * @return \Framework\Build\DeviceConfiguration
      */
     public function getConfiguration()
     {
-        return $this->_configuration;
+        return $this->configuration;
     }
 
     /**
-     * @param $configuration
+     * @param \Framework\Build\DeviceConfiguration $configuration
      * @return $this
      */
     public function setConfiguration($configuration)
     {
         if (\Framework\Defaults\Type\Object::isDefault($configuration) === false)
         {
-            $this->_configuration = $configuration;
+            $this->configuration = $configuration;
         }
         else
         {

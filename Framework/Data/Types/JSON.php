@@ -10,7 +10,7 @@ class JSON
     extends \Framework\Defaults\DefaultClass
 	implements \Framework\Interfaces\DataFormatter
 {
-	public $_dataObject;
+	public $dataObject;
 
     /**
      * @param $dataObject
@@ -28,7 +28,7 @@ class JSON
             $data = \Framework\Data\URLLoader::get($dataObject, '', 'json');
         }
 
-        $this->_dataObject = json_decode($data);
+        $this->dataObject = $this->decode($data);
 
         return $this;
     }
@@ -38,8 +38,28 @@ class JSON
      */
     public function getData()
 	{
-		return (array)$this->_dataObject;
+		return (array)$this->dataObject;
 	}
+
+    /**
+     * Encodes to JSON
+     * @param array $value
+     * @return string
+     */
+    public function encode(array $value)
+    {
+        return json_encode($value);
+    }
+
+    /**
+     * Decodes JSON
+     * @param $value
+     * @return mixed
+     */
+    public function decode($value)
+    {
+        return json_decode($value);
+    }
 }
 
 ?>

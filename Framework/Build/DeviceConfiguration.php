@@ -9,13 +9,16 @@ namespace Framework\Build;
 class DeviceConfiguration
     extends \Framework\Defaults\DefaultClass
 {
-    private $_deviceConfiguration = array();
+    private $deviceConfiguration = array();
 
+    /** Constructs the configuration of the device.
+     * @param array $deviceConfigurationArray Constructs the configuration of the device.
+     */
     public function __construct(array $deviceConfigurationArray)
     {
         if (count($deviceConfigurationArray) > 0)
         {
-            $this->_deviceConfiguration = $deviceConfigurationArray["device"];
+            $this->deviceConfiguration = $deviceConfigurationArray["device"];
         }
         else
         {
@@ -24,42 +27,47 @@ class DeviceConfiguration
     }
 
     /**
-     * @return string
+     * Returns the friendly name of the device.
+     * @return string Returns the friendly name of the device.
      */
     public function getFriendlyName()
     {
-        return (string)$this->_deviceConfiguration->friendlyName;
+        return (string)$this->deviceConfiguration->friendlyName;
     }
 
     /**
-     * @return string
+     * Returns the scheme of the device.
+     * @return string Returns the scheme of the device.
      */
     public function getScheme()
     {
-        return (string)$this->_deviceConfiguration->config->protocol;
+        return (string)$this->deviceConfiguration->config->protocol;
     }
 
     /**
-     * @return string
+     * Returns the host name of the device.
+     * @return string Returns the host name of the device.
      */
     public function getHostName()
     {
-        return (string)$this->_deviceConfiguration->config->hostname;
+        return (string)$this->deviceConfiguration->config->hostname;
     }
 
     /**
-     * @return int
+     * Returns the port number of the device.
+     * @return int Returns the port number of the device.
      */
     public function getPort()
     {
-        return (int)$this->_deviceConfiguration->config->port;
+        return (int)$this->deviceConfiguration->config->port;
     }
 
     /**
-     * @return string
+     * Returns the response type of the device.
+     * @return string Returns the response type of the device.
      */
     public function getResponseType()
     {
-        return (string)$this->_deviceConfiguration->config->responseType;
+        return (string)$this->deviceConfiguration->config->responseType;
     }
 }

@@ -9,8 +9,8 @@ namespace Framework\Core;
 class Router
     extends \Framework\Defaults\DefaultClass
 {
-    private $_controller = \Framework\Defaults\Type\String::DEFAULT_VALUE;
-    private $_action = array();
+    private $controller = \Framework\Defaults\Type\String::DEFAULT_VALUE;
+    private $action = array();
 
     /**
      * @param $url
@@ -18,6 +18,8 @@ class Router
      */
     public function __construct($url, $urlPatternMask = FRAMEWORK_MVC_URL_PATTERN)
     {
+        $url = $this->generateControllerFromUrl($url);
+
         $controllers = array();
         $actions = array();
 
@@ -47,12 +49,12 @@ class Router
 
             // glue arrays back together
             $controllers = implode(FRAMEWORK_CLASS_SEPARATOR, $controllers);
-            $this->_controller = FRAMEWORK_CLASS_ROOT_DIRECTORY . FRAMEWORK_CLASS_SEPARATOR . FRAMEWORK_CONTROLLER_DIRECTORY . FRAMEWORK_CLASS_SEPARATOR . $controllers;
+            $this->controller = FRAMEWORK_CLASS_ROOT_DIRECTORY . FRAMEWORK_CLASS_SEPARATOR . FRAMEWORK_CONTROLLER_DIRECTORY . FRAMEWORK_CLASS_SEPARATOR . $controllers;
 
             // sets action if there are any
             if (count($actions)  > 1)
             {
-                $this->_action = (array)$actions;
+                $this->action = (array)$actions;
             }
         }
         else
@@ -62,13 +64,14 @@ class Router
     }
 
     /**
-     * @return $this->_controller
+     * Returns a controller to dispatch.
+     * @return \Framework\DeviceController\DeviceController Returns a controller to dispatch.
      */
     public function getController()
     {
-        if (\Framework\Defaults\Type\String::isDefault($this->_controller) !== true)
+        if (\Framework\Defaults\Type\String::isDefault($this->controller) !== true)
         {
-            return (string)$this->_controller;
+            return (string)$this->controller;
         }
         else
         {
@@ -77,12 +80,28 @@ class Router
 
     }
 
-    /*
-     *
+    /**
+     * Generates a controller route from the URL.
+     * @param string $url Generates a controller route from the URL.
+     * @return string Generates a controller route from the URL.
      */
+    public function generateControllerFromUrl($url)
+    {
+        // explode url on dots
+        $url = explode(FRAMEWORK_MVC_URL_PATTERN_RESPONSE_TYPE_SEPARATOR, $url);
+
+        // Only pops array when a response type url pattern is given.
+        if (count($url) > 1)
+        {
+            array_pop($url);
+        }
+
+        return (string)current($url);
+    }
+
     public function getAction()
     {
-        return (array)$this->_action;
+        return (array)$this->action;
     }
 }
 ?>

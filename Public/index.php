@@ -1,4 +1,8 @@
 <?php
+/**
+ * @var \Framework\Core\Request $request
+ * @var \Framework\Core\Response $response
+*/
 
 require_once("header.php");
 
@@ -19,14 +23,21 @@ if (\Framework\Defaults\Type\String::isDefault($url) === false)
                 "DeviceTemplates" .
                 FRAMEWORK_DIRECTORY_SEPARATOR .
                 "plex.json",
-                "JSON"
+                "json"
             );
 
             $data = $dataLoader->getData();
             $configuration = new \Framework\Build\DeviceConfiguration($data);
 
         }
-        $page = new $controller($configuration, $router->getAction());
+
+        /** @var \Framework\DeviceController\DeviceController $device */
+        $device = new $controller($request, $response, $configuration, $router->getAction());
+
+        /** @var \Framework\DeviceView\DeviceView $view */
+        $view =  $device->getView();
+
+        $view->render();
     }
     else
     {

@@ -9,93 +9,127 @@ namespace Framework\Core;
 class Headers
     extends \Framework\Defaults\DefaultClass
 {
-    private $_headers = \Framework\Defaults\Type\Object::DEFAULT_VALUE;
-    private $_allowedContentTypes = array();
-    private $_outputContentType = \Framework\Defaults\Type\String::DEFAULT_VALUE;
-    private $_outputContentTypeOverride = \Framework\Defaults\Type\String::DEFAULT_VALUE;
+    private $url = \Framework\Defaults\Type\String::DEFAULT_VALUE;
+    private $headers = \Framework\Defaults\Type\Object::DEFAULT_VALUE;
+    private $allowedContentTypes = array();
+    private $outputContentType = \Framework\Defaults\Type\String::DEFAULT_VALUE;
+    private $outputContentTypeOverride = \Framework\Defaults\Type\String::DEFAULT_VALUE;
 
     /**
      *
      */
-    public function __construct()
+    public function __construct($url)
     {
-        $this->setHeaders();
+        $this->setUrl((string)$url);
+        $headers = $this->obtainHeaders();
+
+        $this->setHeaderContentTypeOverride($url);
+
+        if (\Framework\Defaults\Type\ArrayCollection::isDefault($headers) === false)
+        {
+            $allowedContentTypes = $this->generateAllowedContentTypes();
+
+            $this->setHeaders($headers);
+            $this->setAllowedContentTypes($allowedContentTypes);
+
+            $contentType = $this->generateContentType();
+
+            if (\Framework\Defaults\Type\String::isDefault($contentType) === false)
+            {
+                $this->setContentType($contentType);
+            }
+        }
+        else
+        {
+            echo \Framework\Defaults\Exceptions\Exception::Error("No headers set");
+        }
     }
 
     /**
-     * @param $contentType
+     * Returns a content type override whenever there is a valid and accepted extension in the URL.
      * @return string
      */
-    private function checkContentType($contentType)
+    private function getHeaderContentTypeOverride()
     {
-        $contentTypeReturn = \Framework\Defaults\Type\String::DEFAULT_VALUE;
-
-        switch(strtolower($contentType))
-        {
-            case "json":
-                $contentTypeReturn = \Framework\Build\HTTP\ContentType::JSON;
-                break;
-            case "xml":
-                $contentTypeReturn = \Framework\Build\HTTP\ContentType::XML;
-                break;
-            case "html":
-                $contentTypeReturn = \Framework\Build\HTTP\ContentType::HTML;
-                break;
-            case "text":
-                $contentTypeReturn = \Framework\Build\HTTP\ContentType::PLAIN;
-                break;
-            case "csv":
-                $contentTypeReturn = \Framework\Build\HTTP\ContentType::CSV;
-                break;
-        }
-
-        return $contentTypeReturn;
+        return $this->outputContentTypeOverride;
     }
 
     /**
      * Sets an override whenever there is a valid and accepted extension in the URL.
-     * @param $url
+     * @param string $url The current URL to filter.
      * @return string Sets an override whenever there is a valid and accepted extension in the URL.
      */
-    public function setHeaderContentTypeOverride($url)
+    private function setHeaderContentTypeOverride($url)
     {
         // explode url on dots
         $url = explode(FRAMEWORK_MVC_URL_PATTERN_RESPONSE_TYPE_SEPARATOR, $url);
 
-        // only pops array when a response type url pattern is given.
+
+        // Only pops array when a response type url pattern is given.
         if (count($url) > 1)
         {
             // override from extension, using pop so always checks the last addition.
-            $extension = \Framework\Core\CoreFunctions::cleanURI(array_pop($url));
+            $extension = array_pop($url);
 
-            if (in_array($extension, unserialize(FRAMEWORK_ALLOWED_RESPONSE_TYPES)) === true)
+            if ($this->isAllowedContentType($extension) === true)
             {
-                $this->_outputContentTypeOverride = $this->checkContentType($extension);
+                $this->outputContentTypeOverride = $extension;
             }
         }
+    }
 
-        return (string)current($url);
+
+    /**
+     * Returns if the content type is allowed.
+     * @param string $contentType Returns if the content type is allowed.
+     * @return bool
+     */
+    private function isAllowedContentType($contentType)
+    {
+        return (bool)in_array((string)$contentType, $this->getAllowedContentTypes());
     }
 
     /**
-     * @return array
+     * Returns the allowed content types.
+     * @return array Returns the allowed content types.
      */
-    public function getAllowedContentTypes()
+    private function getAllowedContentTypes()
     {
-        return (array)$this->_allowedContentTypes;
+        return $this->allowedContentTypes;
     }
 
     /**
-     *
+     * Sets the allowed content types.
+     * @param array $value Sets the allowed content types.
      */
-    public function setAllowedContentTypes()
+    private function setAllowedContentTypes(array $value)
     {
+        $this->allowedContentTypes = $value;
+    }
+
+    /** Generates the allowed content types.
+     * @return array Generates the allowed content types.
+     */
+    private function generateAllowedContentTypes()
+    {
+        $allowedContentTypes = array();
+
         $contentTypes = unserialize(strtolower(FRAMEWORK_ALLOWED_RESPONSE_TYPES));
 
         for ($i = 0; $i < count($contentTypes); $i++)
         {
-            array_push($this->_allowedContentTypes, $this->checkContentType($contentTypes[$i]));
+            array_push($allowedContentTypes, $contentTypes[$i]);
         }
+
+        return (array)$allowedContentTypes;
+    }
+
+    /**
+     * @param $value
+     */
+    private function setHeaders($value)
+    {
+        $this->headers = $value;
     }
 
     /**
@@ -103,14 +137,73 @@ class Headers
      */
     public function getHeaders()
     {
-        return $this->_headers;
+        return $this->headers;
     }
 
     /**
-     *
+     * Returns the active content type.
+     * @return string Returns the active content type.
      */
-    public function setHeaders()
+    public function getContentType()
     {
-        $this->_headers = apache_request_headers();
+        return $this->outputContentType;
+    }
+
+    /**
+     * Sets the active content type.
+     * @param string $value Sets the active content type.
+     */
+    private function setContentType($value)
+    {
+        $this->outputContentType = $value;
+    }
+
+    private function generateContentType()
+    {
+        $contentType = \Framework\Defaults\Type\String::DEFAULT_VALUE;
+
+        // returns the hardcoded override in Configuration.Local.php
+        if (\Framework\Defaults\Type\String::isEmpty(FRAMEWORK_RESPONSE_OVERRIDE) === false && $this->isAllowedContentType(FRAMEWORK_RESPONSE_OVERRIDE) === true && FRAMEWORK_DEVELOPMENT_ENVIRONMENT === true)
+        {
+            $contentType = FRAMEWORK_RESPONSE_OVERRIDE;
+        }
+
+        if (\Framework\Defaults\Type\String::isDefault($this->getHeaderContentTypeOverride()) === false && \Framework\Defaults\Type\String::isDefault($this->getHeaderContentTypeOverride()) === false && $this->isAllowedContentType($this->getHeaderContentTypeOverride()))
+        {
+            $contentType = $this->getHeaderContentTypeOverride();
+        }
+
+        if ($this->isAllowedContentType(FRAMEWORK_RESPONSE_DEFAULT) === true)
+        {
+            $contentType = FRAMEWORK_RESPONSE_DEFAULT;
+        }
+
+        return $contentType;
+    }
+
+    /**
+     * @return mixed
+     */
+    private function obtainHeaders()
+    {
+        return apache_request_headers();
+    }
+
+    /**
+     * Gets the current URL.
+     * @return string Gets the current URL.
+     */
+    public function getUrl()
+    {
+        return $this->url;
+    }
+
+    /**
+     * Sets the current URL.
+     * @param string $value Sets the current URL.
+     */
+    private function setUrl($value)
+    {
+        $this->url = (string)$value;
     }
 }

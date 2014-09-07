@@ -10,16 +10,16 @@ namespace Framework\Core;
  */
 class Kernel
 {
-    private $_debug = array();
-    private $_timer = \Framework\Defaults\Type\Object::DEFAULT_VALUE;
-    private $_headers = \Framework\Defaults\Type\Object::DEFAULT_VALUE;
-    private $_request = \Framework\Defaults\Type\Object::DEFAULT_VALUE;
-    private $_response = \Framework\Defaults\Type\Object::DEFAULT_VALUE;
+    private $debug = array();
+    private $timer = \Framework\Defaults\Type\Object::DEFAULT_VALUE;
+    private $headers = \Framework\Defaults\Type\Object::DEFAULT_VALUE;
+    private $request = \Framework\Defaults\Type\Object::DEFAULT_VALUE;
+    private $response = \Framework\Defaults\Type\Object::DEFAULT_VALUE;
 
     /**
      *
      */
-    public function __construct()
+    public function __construct(\Framework\Core\Headers $headers)
     {
         // execute settings
         $this->executeSettings();
@@ -27,23 +27,30 @@ class Kernel
         if (FRAMEWORK_DEVELOPMENT_ENVIRONMENT === true)
         {
             // Call execution timer to loop trough whole event and starts it
-            $this->_timer = new \Framework\DebugTools\ExecutionTimer();
-            $this->_timer->startTimer();
+            $this->timer = new \Framework\DebugTools\ExecutionTimer();
+            $this->timer->startTimer();
         }
+
+        $this->setHeaders($headers);
     }
 
     /**
-     *
+     * Starts up the initialisation process.
+     * @return bool
      */
     public function startUp()
     {
-        $this->setHeaders();
+        $request = new \Framework\Core\Request($this->getHeaders());
+        $response = new \Framework\Core\Response($this->getHeaders());
 
-        $this->setRequest($this->getHeaders());
-        $this->setResponse($this->getHeaders());
+        $this->setRequest($request);
+        $this->setResponse($response);
+
+        return true;
     }
 
     /**
+     * Shuts down.
      * @return bool
      */
     public function shutDown()
@@ -51,16 +58,16 @@ class Kernel
         if (FRAMEWORK_DEVELOPMENT_ENVIRONMENT === true)
         {
             // set last execution timer and parse it
-            $this->_timer->stopTimer();
-            array_push($this->_debug, array("executionTime" => $this->_timer->parseExecutionTime()));
-            array_push($this->_debug, array("classesCalled" => \Framework\DebugTools\ClassCount::Show()));
+            $this->timer->stopTimer();
+            array_push($this->debug, array("executionTime" => $this->timer->parseExecutionTime()));
+            array_push($this->debug, array("classesCalled" => \Framework\DebugTools\ClassCount::Show()));
 
-            echo '<pre>';
-            var_dump($this->_debug);
-            echo '</pre>';
+            $response = $this->getResponse();
+
+            $response->addDebugInformationAtEnd($this->debug);
         }
 
-        return (bool)true;
+        return true;
     }
 
     /**
@@ -75,48 +82,52 @@ class Kernel
         }
     }
 
-    public function setHeaders()
+    /**
+     * @param \Framework\Core\Headers $value
+     */
+    public function setHeaders(\Framework\Core\Headers $value)
     {
-        $this->_headers = new \Framework\Core\Headers();
+        $this->headers = $value;
     }
 
     /**
-     * @return \Framework\Core\Headers
+     * @return \Framework\Core\Headers $value
      */
     public function getHeaders()
     {
-        return $this->_headers;
+        return $this->headers;
     }
 
     /**
-     * @param $headers
+     * @param \Framework\Core\Request $value
      */
-    public function setRequest($headers)
+    public function setRequest(\Framework\Core\Request $value)
     {
-        $this->_request = new \Framework\Core\Request($headers);
+        $this->request = $value;
     }
 
     /**
-     * @param $headers
+     * @param \Framework\Core\Response $value
      */
-    public function setResponse($headers)
+    public function setResponse(\Framework\Core\Response $value)
     {
-        $this->_response = new \Framework\Core\Response($headers);
+        $this->response = $value;
     }
 
+
     /**
-     * @return null
+     * @return \Framework\Core\Request
      */
     public function getRequest()
     {
-        return $this->_request;
+        return $this->request;
     }
 
     /**
-     * @return null
+     * @return \Framework\Core\Response
      */
     public function getResponse()
     {
-        return $this->_response;
+        return $this->response;
     }
 }

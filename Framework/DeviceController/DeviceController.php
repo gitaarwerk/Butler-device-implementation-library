@@ -14,5 +14,5 @@ abstract class DeviceController
      * @param array $actions
      * @param string $arguments
      */
-    abstract public function __construct($configuration, array $actions, $arguments = "");
+    abstract public function __construct(\Framework\Core\Request $request, \Framework\Core\Response $response, \Framework\Build\DeviceConfiguration $configuration, array $actions, $arguments = "");
 }
